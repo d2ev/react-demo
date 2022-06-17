@@ -1,0 +1,54 @@
+What are the challenges in Modern Web Development?
+- Unified UX
+- Fluid UX
+- Loosely coupled and Extensible
+
+What is solution?
+- Better to build SPA.
+
+How to build SPA?
+- React and Angular
+
+What is difference between Angular and React?
+- React is a library
+- Angular is a developers platform and framework.
+
+What is difference between library and framework?
+- Library can build application.
+- Framework can build and control the application flow.
+
+
+What is React?
+- React is a JavaScript library for building UI.
+- UI = SPA
+- Fluid
+- Unified
+- Loosly Coupled and Extensible.
+
+What are the Features of React?
+1. Component Based
+    - Easy to build interfaces
+    - Easy to reuse
+    - Building faster
+    - Easy to extend
+    - Loosely coupled
+
+2. Modular library
+    - Application specific library
+    - Imporves the performance of application
+    - light weight application
+
+3. Asynchronous Library
+    - Implicitly uses Ajax.
+    - Without reloading complete page
+      new details are added to page.
+
+
+4. Uses Virtual DOM
+   
+FAQ:
+1. What is DOM?
+2. How DOM renders?
+3. What is Shadow DOM?
+4. What is Virtual DOM?
+5. Difference between DOM, Shadow DOM, Virtual DOM?

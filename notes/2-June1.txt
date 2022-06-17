@@ -1,0 +1,45 @@
+React Features
+- Component Based
+- Modular
+- Async
+- Virtual DOM
+- Faster
+- Better performance
+
+FAQ:What is DOM?
+Ans: It is a hierarchy of elements presented in Browser.
+
+Browser Engine
+- Chrome        : Blink, V8
+- IE                : Trident
+- Safari            : Webkit
+- FireFox            : Gecko
+- Edge            : Chakra, Chromium
+
+Architecture of Browser Engine
+- UI
+- Browser Engine
+- Rendering Engine
+- Data Persistance
+- JavaScript Interpreter
+
+
+Workflow of Browser Engine
+
+Markup => Bytes => Chars => Token => Node => DOM => Layout => Rendering => Painting
+
+Styles => Bytes => Chars => CSSOM => Layout => Rendering => Paint
+
+DOM         : Document Object Model    of HTML
+CSSOM    : Cascase Style Sheet Object Model of CSS
+
+FAQ: What is Shadow DOM?
+Ans:  Shadow DOM is a DOM under any specific element in page.
+        Root and Shadow hierarchy of building component.
+
+Note:  DOM is for Page,
+         Shadow DOM is for component in page. [date, file, color]
+
+
+FAQ: What is Virtual DOM?
+Ans: The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called reconciliation.

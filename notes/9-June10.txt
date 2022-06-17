@@ -1,0 +1,224 @@
+Data Binding
+- Binding Expressing
+- Property Binding
+
+Ex: Presenting Table
+
+
+export default function DataBindingComponent(){
+    var products = [
+        {Name: 'Samsung TV', Price: 56000.44},
+        {Name: 'Nike Casuals', Price: 4200.44}
+    ];
+    return(
+        <div className="container">
+            <h2>Products Table</h2>
+            <table className="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        products.map(product=>
+                            <tr>
+                                <td>{product.Name}</td>
+                                <td>{product.Price}</td>
+                            </tr>
+                            )
+                    }
+                </tbody>
+            </table>
+        </div>
+    )
+}
+
+Ex: Nested Iterations
+                       
+
+export default function DataBindingComponent(){
+    var menu = [
+        {Category: "Electronics", Products: ["Samsung TV", "Mobile"]},
+        {Category: "Footwear", Products: ["Nike Causals", "Lee Boot"]}
+    ]
+    return(
+        <div className="container">
+            <h2>Categories</h2>
+            <ol>
+                {
+                    menu.map(item =>
+                        <li key={item.Category}>{item.Category}
+                            <ul>
+                                {
+                                    item.Products.map(product=>
+                                        <li key={product}>{product}</li>
+                                        )
+                                }
+                            </ul>
+                        </li>
+                        )
+                }
+            </ol>
+            <h2>Select a Product</h2>
+            <select>
+                {
+                    menu.map(item=>
+                        <optgroup key={item.Category} label={item.Category}>
+                            {
+                                item.Products.map(product=>
+                                    <option key={product}>{product}</option>
+                                    )
+                            }
+                        </optgroup>
+                        )
+                }
+            </select>
+        </div>
+    )
+}
+
+- React supports only "One Way Binding".
+- Two way binding is not supported implicitly, you have to implement explicitly by using "Event Binding".
+- Two way binding is the process of identifying changes in UI and update back to data.
+- You have to explicitly manage by using Event Handlers like
+            onChange
+            onBlur
+            onKeyup etc..
+- Never use variables to handle data in a component.
+- Variables are immutable.
+- Component must have data in only mutable properties.
+- You have to use "State" for storing data.
+- Class component in react have default state.
+- Function component requires explicit state.
+- You can configure state for function component by using
+                "useState" hook
+- It is an Array Type that comprises of 2 elements
+        a) getter
+        b) setter
+
+- You have to use a destructing technique to access the
+   the "accessors" from useState
+
+Syntax:
+    const   [getter, setter] = useState(value);
+
+     { getter }
+
+Ex:
+import { useState } from "react";
+
+export default function DataBindingComponent(){
+     const [products, setProduct] = useState(["TV", "Mobile", "Shoe"]);
+    return(
+        <div className="container">
+            <ol>
+                {
+                    products.map(product=>
+                        <li key={product}>{product}</li>
+                        )
+                }
+            </ol>
+        </div>
+    )
+}
+
+- In class component the actions to perform on component initlization are performed by using Life Cycle Hook Method
+                a) componentDidMount()
+                b) componentMount()
+
+- In function component it is managed by using a Hook
+                "useEffects()"
+   [It acts as a constructor]
+
+Syntax:
+                useEffects(()=> {
+
+
+                }, [dependencies])
+
+
+Ex: Nasa API
+
+import { useState, useEffect } from "react";
+
+export default function DataBindingComponent(){
+     const [mars, setMars] = useState();
+
+     useEffect(()=>{
+        fetch("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY&quot;)
+        .then(response=> response.json())
+        .then(data=>{
+            setMars(data);
+        })
+     },[])
+
+    return(
+        <div className="container">
+            <h2>Mars Photos</h2>
+            <table className="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Photo Id</th>
+                        <th>Camera Name</th>
+                        <th>Rover Name</th>
+                        <th>Preview</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        mars.photos.map(photo=>
+                            <tr>
+                                <td>{photo.id}</td>
+                                <td>{photo.camera.full_name}</td>
+                                <td>{photo.rover.name}</td>
+                                <td>
+                                    <img src={photo.img_src} width="100" height="100"/>
+                                </td>
+                            </tr>
+                            )
+                    }
+                </tbody>
+            </table>
+        </div>
+    )
+}
+
+Ex: API with Card Style
+
+import { useState, useEffect } from "react";
+
+export default function DataBindingComponent(){
+     const [mars, setMars] = useState();
+
+     useEffect(()=>{
+        fetch("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY&quot;)
+        .then(response=> response.json())
+        .then(data=>{
+            setMars(data);
+        })
+     },[])
+
+    return(
+        <div className="container">
+            <h2>Mars Photos</h2>
+            <div className="d-flex flex-wrap">
+                {
+                    mars.photos.map(photo=>
+                        <div className="card p-2 m-2 w-25">
+                            <img src={photo.img_src} className="card-img-top" height="150" />
+                            <div className="card-header">
+                                <h2>{photo.camera.full_name}</h2>
+                            </div>
+                            <div className="card-body">
+                                <p>{photo.rover.name}</p>
+                            </div>
+                        </div>
+                       
+                        )
+                }
+            </div>
+        </div>
+    )
+}

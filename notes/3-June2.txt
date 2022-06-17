@@ -1,0 +1,133 @@
+Cons of React:
+- React is a library [can build but can't control flow]
+- Need support of various framework explicitly.
+- Need support of various 3rd party libraries
+
+              Forms and Validation        : Formik, Yup
+             API                                : Axios, jQuery Ajax
+             
+- Pace of Development is very fast
+        First Version 2013     -  2022  18.1
+
+- Poor documentation
+
+                              React 18.1 [April 2022]
+
+Setup Environment for React 18:
+1. You can use react in existing web application.
+2. You can create a new react application.
+
+Step-1
+- Download and Install "node js" on your PC
+- We are installing node.js for a package manager called "npm"
+
+        yarn, bower, grunt, rubyGems, npm, nuGet
+
+        https://nodejs.org/en/
+
+  C:\> node -v           12+    [16]
+  C:\> npm  -v             6+    [8]
+
+Step-2
+- Download and Install "Visual Studio Code" editor
+
+    https://code.visualstudio.com/
+
+- Install following extentions for VS Code
+
+    a) Live Server
+     b) vscode-icons
+     c) intelliSense for CSS class names in HTML
+
+
+How to use react in existing web application?
+------------------------------------------------------------
+1. Create  a new folder for your project
+
+                D:\react-web-app
+
+2.  Open folder in your Editor [VS Code]
+
+3.   Open Terminal
+        Ctrl + `      [back tick]
+
+4.  Run the command
+
+        > npm init -y
+
+     This will generate "package.json"
+
+5. Add following folders into project
+
+        - public        [static resources, html, text, pdf, images..]
+        - src            [.css, .scss, .js, .ts ]
+
+
+6. Add following pages into public folder
+
+            - index.html
+            - home.html
+
+
+Note:
+1. In order to use react in any page you need 3 basic libraries
+            a) React                            [ Core Library ]
+            b) ReactDOM                    [ Virtual DOM]
+            c) Babel    Standalone            [ JavaScript Compiler]
+
+
+    React CDN
+            https://reactjs.org/docs/cdn-links.html
+
+    Babel CDN
+            https://babeljs.io/docs/en/babel-standalone
+
+
+
+Index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <h2>Index Page</h2>
+    <a href="home.html">Home</a>
+</body>
+</html>
+
+home.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script&gt;
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script&gt;
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script&gt;
+    <script type="text/babel">
+       /*
+         Upto React 17
+         ReactDOM.render(
+            "Welcome to React !!",
+            document.querySelector("p")
+        )
+        */
+        // React 18
+        const root = ReactDOM.createRoot(document.querySelector("h3"));
+        root.render("Hello ! React");
+    </script>
+</head>
+<body>
+    <h2>Home - Using React</h2>
+    <h3></h3>
+    <a href="index.html">Back to Index</a>
+</body>
+</html>

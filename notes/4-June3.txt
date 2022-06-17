@@ -1,0 +1,73 @@
+- You can download react and babel library using NPM
+                  www.npmjs.org
+
+- Open Terminal in your project
+
+        >npm install react            --save
+        >npm install react-dom    --save
+        >npm install @babel/standalone  --save
+
+- All your library files are copied into a folder
+
+            "node_modules"
+
+  Note: Node.js is configure with "umd", hence import library
+          from "umd" not "cjs".
+
+Home.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="../node_modules/@babel/standalone/babel.js"></script>
+    <script type="text/babel">
+       /*
+         Upto React 17
+         ReactDOM.render(
+            "Welcome to React !!",
+            document.querySelector("p")
+        )
+        */
+        // React 18
+        const root = ReactDOM.createRoot(document.querySelector("h3"));
+        root.render("Hello ! React");
+    </script>
+</head>
+<body>
+    <h2>Home - Using React</h2>
+    <h3></h3>
+    <a href="index.html">Back to Index</a>
+</body>
+</html>
+
+Note: You can configure "ESLINT"  to define
+            a) JavaScript Version  "ES6, ES7,.."
+            b) Module System
+
+
+Creating a new React Application
+----------------------------------------------
+
+Note: You can build a complete empty react application by using
+                    "Web Pack"
+
+
+1. Go to any location on your PC
+2. Open location in command prompt
+
+   D:\>npx  create-react-app   react-shopping
+
+
+3. Open project folder in "Visual Studio Code"
+
+4. To Start and Run project
+
+    D:\react-shopping> npm start
+
+    http://localhost:3000

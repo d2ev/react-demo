@@ -1,0 +1,190 @@
+Day-1 https://youtu.be/V7tuND05UF8
+Day-2 https://youtu.be/0EOP2E5G2S8
+Day-3 https://youtu.be/HGiD0_GwI4I
+Day-4 https://youtu.be/0a_JRtd4ZGI
+Day-5 https://youtu.be/id9_l1aOEMo
+Day-6 https://youtu.be/LcUjgxIuT3s
+Day-7 https://youtu.be/XSgmPgGgzCE
+Day-8 https://youtu.be/9M99twqC9Zo
+Day-9 https://youtu.be/T4T90IYUe9A
+
+
+
+
+
+
+FAQ: What are the difference between Function and Class Component?
+
+Class Component
+- It represent a JavaScript class.
+- It is good for extensibility.
+- Component class comprises state
+- It is known as Stateful component.
+- Life Cycle is configured for component.
+- It handles various phases from initialization to destroy.
+
+Function Component
+- It represents a JavaScript function.
+- It is not great in extensibility
+- It uses less memory
+- It is faster
+- It is state less [ from 17+ versions you can use state]
+- Explicitly use  state
+- No life cycle methods implicitly [ explicitly you can configure]
+
+
+FAQ: Which component you will design as class?
+Ans:  The components that need requglar extentions.
+
+
+                                Data Binding
+- Data Binding is technique that defines how data is binded to UI. [View]
+- JavaScript and jQuery uses lot of DOM methods for Data Binding.
+            getElementById()
+            getQuerySelector()
+            appendChild()
+            createElement()
+
+Ex: JavaScript
+
+<head>
+  <script>
+      var categories = ["All", "Electronics", "Footwear"];
+      function bodyload(){
+          for(var item of categories){
+              var li = document.createElement("li");
+              li.innerHTML = item;
+              document.querySelector("ol").appendChild(li);
+          }
+      }
+  </script>
+</head>
+<body onload="bodyload()">
+    <ol>
+
+    </ol>
+</body>
+
+Ex: jQuery
+
+<head>
+  <script src="./node_modules/jquery/dist/jquery.js"></script>
+  <script>
+      var categories = ["All", "Electronics", "Footwear"];
+      $(function(){
+          $.each(categories,function(key, value){
+              $(`<li>${value}</li>`).appendTo("ol");
+          })
+      })
+  </script>
+</head>
+<body>
+    <ol>
+
+    </ol>
+</body>
+
+- React can handle data binding by using binding expression and simple collection methods.
+- React Data Binding Expression
+        "{  }"
+- You can bind to a property or you can bind as literal
+
+        <div> {literal} </div>
+        <img src={product.image}>
+        <input type="text"  value={product.Name} />
+
+Ex:
+
+export default function DataBindingComponent(){
+    var product = {
+        Name: 'Samsung TV',
+        Price: 45005.45,
+        Stock: true
+    }
+    return(
+        <div className="container">
+            <h2>Product Details</h2>
+            <dl>
+                <dt>Name</dt>
+                <dd>{product.Name}</dd>
+                <dd><input type="text" value={product.Name}/></dd>
+                <dt>Price</dt>
+                <dd>{product.Price}</dd>
+                <dt>Stock</dt>
+                <dd>{(product.Stock==true)?"Available":"Out of Stock"}</dd>
+            </dl>
+        </div>
+    )
+}
+
+- You can't bind any dynamic value to attribute.
+
+
+        <div class={ }>            // invalid
+        <div className={}>
+
+        <table height={}>        // invalid - table don't have height
+                                       as property.
+
+
+- Binding a collection - Array
+        .map()
+        .filter()
+        .find()
+        .toString()
+        .join()
+        .slice()
+
+Ex:
+
+export default function DataBindingComponent(){
+    var categories = ["All", "Electronics", "Footwear", "Fashion"];
+    return(
+        <div className="container">
+            <h2>Categories</h2>
+            <ol>
+                {
+                    categories.map(category=>
+                        <li>{category}</li>
+                        )
+                }
+            </ol>
+            <h2>Select Category</h2>
+            <select>
+                {
+                    categories.map(category=>
+                         <option value={category}>{category}</option>
+                        )
+                }
+            </select>
+        </div>
+    )
+}
+
+- In React iterations every iterating item must have a unique key.
+
+Ex:
+
+export default function DataBindingComponent(){
+    var categories = ["All", "Electronics", "Footwear", "Fashion"];
+    return(
+        <div className="container">
+            <h2>Categories</h2>
+            <ol>
+                {
+                    categories.map(category=>
+                        <li key={category}>{category}</li>
+                        )
+                }
+            </ol>
+            <h2>Select Category</h2>
+            <select>
+                {
+                    categories.map(category=>
+                         <option key={category} value={category}>{category}</option>
+                        )
+                }
+            </select>
+        </div>
+    )
+}

@@ -1,0 +1,215 @@
+One Way Binding
+Two Way Binding
+Event Binding
+
+Ex:
+TwoWayBinding.js
+
+
+import { useState } from "react";
+
+export default function TwoWayBinding(){
+    const [product, setProduct] = useState({Name:'', Price:0, City:'', Stock:false});
+    const [newProduct, setNewProduct] = useState({Name:'', Price:0, City:'', Stock:false});
+
+    function handleName(e){
+        setProduct({
+            Name: e.target.value,
+            Price: product.Price,
+            City: product.City,
+            Stock: product.Stock
+        })
+    }
+    function handlePrice(e){
+        setProduct({
+            Name: product.Name,
+            Price: e.target.value,
+            City: product.City,
+            Stock: product.Stock
+        })
+    }
+    function handleCity(e){
+        setProduct({
+            Name: product.Name,
+            Price: product.Price,
+            City: e.target.value,
+            Stock: product.Stock
+        })
+    }
+    function handleStock(e){
+        setProduct({
+            Name: product.Name,
+            Price: product.Price,
+            City: product.City,
+            Stock: e.target.checked
+        })
+    }
+
+    function handleRegisterClick(){
+        setNewProduct(product);
+    }
+
+    return(
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-3">
+                    <h2>Register Product</h2>
+                    <dl>
+                        <dt>Name</dt>
+                        <dd><input className="form-control" onChange={handleName} type="text"/></dd>
+                        <dt>Price</dt>
+                        <dd><input className="form-control" onChange={handlePrice} type="text"/></dd>
+                        <dt>City</dt>
+                        <dd>
+                            <select onChange={handleCity} className="form-select">
+                                <option>Delhi</option>
+                                <option>Hyd</option>
+                            </select>
+                        </dd>
+                        <dt>Stock</dt>
+                        <dd className="form-switch">
+                            <input onChange={handleStock} className="form-check-input" type="checkbox" /> Available
+                        </dd>
+                    </dl>
+                    <button onClick={handleRegisterClick} className="btn btn-primary w-100">Register</button>
+                </div>
+                <div className="col-9">
+                    <h2>Product Details</h2>
+                    <dl>
+                        <dt>Name</dt>
+                        <dd>{newProduct.Name}</dd>
+                        <dt>Price</dt>
+                        <dd>{newProduct.Price}</dd>
+                        <dt>City</dt>
+                        <dd>{newProduct.City}</dd>
+                        <dt>Stock</dt>
+                        <dd>{(newProduct.Stock==true)?"Available":"Out of Stock"}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+Ex:
+ GET            /products                                    all products
+ GET            /products/categories                    all categories
+ GET            /products/category/electronics        specific category
+ GET            /products/1                                specific product
+
+ShoppingComponent.js
+
+
+import { useState, useEffect } from "react";
+
+export default function ShoppingComponent()
+{
+    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
+    const [itemsCount, setItemsCount] = useState(0);
+
+    function GetCartItemsCount(){
+        setItemsCount(cartItems.length);
+    }
+
+    function LoadCategories(){
+        fetch('http://fakestoreapi.com/products/categories&#39;)
+        .then(response=> response.json())
+        .then(data=> {
+            data.unshift('all');
+            setCategories(data);
+        })
+    }
+
+    function LoadProducts(url){
+        fetch(url)
+        .then(response=> response.json())
+        .then(data=>{
+            setProducts(data);
+        })
+    }
+
+    useEffect(()=>{
+        LoadCategories();
+        LoadProducts('http://fakestoreapi.com/products&#39;);
+    },[])
+
+
+    function handleCategoryChange(e){
+        if(e.target.value=='all'){
+            LoadProducts('http://fakestoreapi.com/products&#39;);
+        } else {
+        LoadProducts(`http://fakestoreapi.com/products/category/${e.target.value}`)
+        }
+    }
+
+    function handleAddtoCart(e){
+            alert("Item Added to Cart");
+            fetch(`http://fakestoreapi.com/products/${e.target.id}`)
+            .then(response=> response.json())
+            .then(data=>{
+                setCartItems(data);
+            })
+            setItemsCount(itemsCount++);
+            GetCartItemsCount();
+    }
+
+    return(
+        <div className="container-fluid">
+          <header className="bg-danger text-white text-center p-2">
+             <h1> <span className="bi bi-cart"></span> Shopping Home</h1>
+          </header>
+          <section className="row mt-3">
+            <nav className="col-2">
+               <div>
+                <label>Select a Category</label>
+                <div>
+                    <select onChange={handleCategoryChange} className="form-select">
+                        {
+                            categories.map(category=>
+                                <option value={category} key={category}>{category.toUpperCase()}</option>
+                                )
+                        }
+                    </select>
+                </div>
+               </div>
+            </nav>
+            <main className="col-8 d-flex flex-wrap overflow-auto" style={{height:'600px'}} >
+                {
+                    products.map(product=>
+                        <div key={product.id} className="card m-2 p-2 w-25">
+                            <img src={product.image} className="card-img-top" height="150" />
+                            <div className="card-header" style={{height:'160px'}}>
+                                <p>{product.title}</p>
+                            </div>
+                            <div className="card-body">
+                                <dl>
+                                    <dt>Price</dt>
+                                    <dd>{product.price}</dd>
+                                    <dt>Rating</dt>
+                                    <dd>
+                                        <span className="bi bi-star-fill text-success"></span>
+                                        {product.rating.rate} <span>[{product.rating.count}]</span>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div className="card-footer">
+                                <button id={product.id} onClick={handleAddtoCart} className="btn btn-danger w-100">
+                                    <span className="bi bi-cart4"></span> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        )
+                }
+            </main>
+            <aside className="col-2">
+                <button className="btn btn-danger w-100">
+                    <span className="bi bi-cart3"></span> [{itemsCount}] Your Cart Items
+                </button>
+            </aside>
+          </section>
+        </div>
+    )
+}
