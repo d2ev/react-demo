@@ -4,10 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.css'
+import MarsRoverAPI from './components/function_components/MarsRover';
+import FakeStore from './components/function_components/FakeShoppingCart';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+   <FakeStore />
   </React.StrictMode>
 );
 
