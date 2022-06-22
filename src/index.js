@@ -9,11 +9,12 @@ import '../node_modules/bootstrap-icons/font/bootstrap-icons.css'
 import MarsRoverAPI from './components/function_components/MarsRover';
 import FakeStore from './components/function_components/FakeShoppingCart';
 import ClassFakeStore from './components/class_components/ClassFakeStore';
+import LoginForm from './components/function_components/LoginForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <FakeStore />
+   <LoginForm />
   </React.StrictMode>
 );
 
