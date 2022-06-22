@@ -1,0 +1,88 @@
+React Formik Validations
+- Designed form using "Formik"
+
+                                Formik Validations
+- Validation is the process of verifying user input.
+- Validation is required to ensure that contradictionary and unauthorized data is not get stored into the database.
+- React can handle validations without help of third party by using JavaScript functions.
+                isNaN()
+                indexOf()
+                typeof etc..
+- React have to use various events to verify the value
+                onBlur
+                onKeyup
+                onFocus
+                onChange etc..
+- Formik can use validation, from validation function that returns errors object.
+- You have to use JavaScript methods for verifying the value.
+
+Step-1: Create a function for accepting form values, verifying the values and reporting errors.
+
+            function  ValidateForm(values)
+            {
+                  const errors = { };
+                  if(values.Name=="") {  errors.Name="Required" }
+                  if(values.Email=="")  {  errors.Email="Required" }
+                  return errors;
+            }
+
+
+Step-2: Formik have to use the validation function
+
+
+          var formik = useFormik({
+                initialValues: { },
+                onSubmit: function() { },
+                validate: validateForm
+        })
+
+Step-3: Bind the Error Messages with UI
+
+        <span> {formik.errors.Name} </span>
+import { useFormik } from "formik";
+
+
+export default function FormikValidation()
+{
+
+    function ValidateUser(userDetails)
+    {
+        const errors = {};
+        if(userDetails.UserName==""){
+            errors.UserName = "User Name Required";
+        }
+        if(userDetails.Mobile.match(/\+91\d{10}/)) {
+            errors.Mobile="";
+        } else {
+            errors.Mobile="Invalid Mobile";
+        }
+        return errors;
+    }
+
+    const formik = useFormik({
+        initialValues: {
+            UserName: '',
+            Mobile: ''
+        },
+        validate: ValidateUser,
+        onSubmit: values=> {
+            alert(JSON.stringify(values));
+        }
+    })
+    return(
+        <div className="container-fluid">
+            <h2>Register User</h2>
+            <form onSubmit={formik.handleSubmit}>
+                <dl>
+                    <dt>User Name</dt>
+                    <dd><input name="UserName" onBlur={formik.handleBlur} onChange={formik.handleChange} type="text"/></dd>
+                    <dd className="text-danger">{formik.errors.UserName}</dd>
+                    <dt>Mobile</dt>
+                    <dd><input name="Mobile" onChange={formik.handleChange} type="text"/></dd>
+                    <dd className="text-danger">{formik.errors.Mobile}</dd>
+                </dl>
+                <button>Submit</button>
+            </form>
+        </div>
+    )
+}

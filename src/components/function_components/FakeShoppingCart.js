@@ -1,5 +1,6 @@
 import { Toast } from "bootstrap";
 import { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
 
 export default function FakeStore() {
     const [products, setProducts] = useState([]);
@@ -89,17 +90,19 @@ export default function FakeStore() {
                 <div className="col-6 d-flex flex-wrap">
                     {
                         products.map(product =>
+                            // ProductCar handlerAddtoCart won't work. find solution ?
+                            // <ProductCard key={product.id} product={product} />
                             <div key={product.id} className="card p-2 m-2" style={{ width: '200px' }}>
-                                <img src={product.image} className="card-img-top" />
-                                <div className="card-body">
-                                    <p className="card-text">{product.title}</p>
-                                </div>
-                                <div className="card-footer">
-                                    <button className="btn btn-danger w-100" onClick={handlerAddtoCart} id={product.id}>
-                                        <span className="bi bi-cart4"></span>Add to Cart
-                                    </button>
-                                </div>
+                            <img src={product.image} className="card-img-top" />
+                            <div className="card-body">
+                                <p className="card-text">{product.title}</p>
                             </div>
+                            <div className="card-footer">
+                                <button className="btn btn-danger w-100" id={product.id} onClick={handlerAddtoCart}>
+                                    <span className="bi bi-cart4"></span>Add to Cart
+                                </button>
+                            </div>
+                        </div>
                         )
                     }
                 </div>
